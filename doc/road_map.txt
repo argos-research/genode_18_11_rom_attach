@@ -1,0 +1,186 @@
+
+                             ========
+                             Road Map
+                             ========
+
+
+Herein, we lay out our plans for evolving Genode. Progress in addition to this
+planning will very much depend on the degree of community support the project
+will receive. The
+[http:/about/challenges - Challenges] page collects some of our ideas to
+advance Genode in various further directions.
+
+The road map is not fixed. If there is commercial interest of pushing the
+Genode technology to a certain direction, we are willing to revisit our plans.
+
+
+Review of 2017
+##############
+
+The technical topics of 2017 ranged from hardware-accelerated graphics, over
+UEFI, greatly improved seL4 support, user-level networking, file-system
+infrastructure, to an consolidated framework API. However, one topic stood out
+the most, which is the practical use of Genode as day-to-day OS.
+
+Whereas the so-called "Turmvilla" system scenario enabled a few enthusiasts to
+work on a Genode-based system since mid of 2015, the scenario was quite rigid
+and required significant manual labour for any customization. Although it was
+not really inviting for potential users, it illustrated well that all the
+basic building blocks - in particular the driver stacks - were in place. But
+it would have been be quite a stretch to call Turmvilla a general-purpose OS
+at that point. The year 2017 introduced two pivotal features that allowed us to
+break free from the limitations of Turmvilla-like scenarios, namely the new
+[https://genode.org/documentation/release-notes/17.05#Package_management - package-management concept]
+and the ability to
+[https://genode.org/documentation/release-notes/17.02#Dynamically_reconfigurable_init_component - compose and modify subsystems dynamically].
+
+Inspired by these new features, a new system scenario called "Sculpt" emerged
+in Autumn 2017. The combination of Genode's recursive architecture with the
+dynamic reconfigurability of the init component allows the user to
+interactively shape the running Genode system including any subsystem or even
+configurations of individual components. The system structure is always at the
+user's fingertips and can by modified instantly using a text editor. At the
+same time, the new package management greatly helps to keep the complexity at
+a manageable level. Whereas Turmvilla users rarely updated their installation
+out of hesitance to break their work environment, Sculpt is routinely updated
+on a weekly basis. The switch of the entire Genode-Labs team to Genode full
+time by the end of year was certainly our biggest milestone so far.
+
+
+2018 - The year of Sculpt
+#########################
+
+The "Turmvilla" era lies behind us. So let the "Sculpt" era begin!
+
+Having used Sculpt over the past few months, we feel confident to make the
+system scenario available to a larger audience. In 2018, we will take four
+steps:
+
+# Sculpt for Early Adopters (EA)
+
+  The current version of Sculpt accompanied with plain-text documentation
+  that explains the concept and use. It is intended for people who are
+  already familiar with Genode, in particular users that experimented with
+  Turmvilla-like scenarios in the past. Sculpt EA expects basic Vim skills
+  from the user.
+
+# Sculpt for The Curious (TC)
+
+  A polished version of Sculpt that is more welcoming to the user and
+  accompanied with example subsystems that loosely resemble a traditional
+  notion of an operating system (like basic menus and window borders).
+  There will be a ready-to-use ISO image for Sculpt TC. So users won't need
+  to be familiar with Genode's source code and build system. As with Sculpt
+  EA, Sculpt TC will still rely on the user's ability to use Vim.
+
+# Sculpt by Visual Composition (VC)
+
+  Whereas the earlier versions rely on text editing for sculpting the system,
+  Sculpt VC will feature an interactive graphical user interface, which will
+  hopefully make the system tangible for users who live outside the terminal.
+
+# Sculpt as a Community Experience (CE)
+
+  Sculpt CE will allow anyone to play the role of a component provider.
+  Each user should be able to pick individual components or entire component
+  compositions provided by others while maintaining complete control over the
+  system.
+
+In addition to working on Sculpt as the overall theme of the year, we will
+focus on the following topics:
+
+:Gentle transition from NOVA to our custom kernel and seL4:
+
+  NOVA used to be our kernel of choice on x86 platforms. However, since the
+  kernel is no longer actively developed, we had to take over the
+  responsibility to maintain it. Whereas we feel confident in developing the
+  kernel in an evolutionary way, the kernel has long-standing architectural
+  limitations (i.e. kernel-memory management) that would require invasive
+  changes. Instead of ramping up our engagement with NOVA, we'd like to focus
+  on our custom kernel (base-hw) and the seL4 kernel. In 2018, we set out to
+  enable Sculpt on base-hw. This involves the support for SMP, VT-x, and VT-d
+  on x86.
+
+:Freescale i.MX:
+
+  Based on the feedback from our community, Freescale i.MX support is of
+  great interest, specifically i.MX6. Hence, we plan to improve the driver
+  support for this SoC.
+
+:seL4:
+
+  We will try to apply all improvements of Genode on seL4 whenever feasible.
+  It also goes without saying that we will track seL4's upstream development.
+
+:Software quality and resilience:
+
+  The modernized framework API introduced last year is an important stepping
+  stone. But there is much more we can (and should) do, I.e., learning from
+  the high-integrity computing community (e.g., implementing critical
+  components in SPARK), leveling-up the scope and intensity of our automated
+  tests, facilitating static code analysis, and employing software-hardening
+  techniques. Of course, this scope goes far beyond the time frame of one
+  year. The immediate prioritization of these topics will largely depend on
+  the focus of commercial users funding the work.
+
+:System monitoring, tracing, profiling:
+
+  The interactive use of Sculpt along with the prospects enabled by Genode's
+  GPU support motivate us to optimize Genode towards low-latency multimedia
+  applications. We will ultimately need to gain a deep understanding on
+  inter-component interactions, in particular along time-critical data paths.
+  Therefore, we plan to improve the tooling and cultivate the use of our
+  existing but underused tracing support.
+
+:Java:
+
+  By the end of 2018, we want to enable Genode to leverage the ecosystem
+  around Java, which is - according to the TIOBE index - the most popular
+  programming language.
+
+
+Milestones for 2018
+###################
+
+In the following, we present a rough schedule of the planned work. As usual,
+it is not set in stone. If you are interested in a particular line of work,
+please get in touch.
+
+
+February - Release 18.02
+========================
+
+* Sculpt for Early Adopters (EA)
+* Dynamic on-target package installation and deployment
+* i.MX6 networking
+
+
+May - Release 18.05
+===================
+
+* Sculpt for The Curious (TC)
+* Update of the Genode Foundations book
+* Consistent use of the depot tools for automated tests
+* Qt5-based applications based on packages
+* SMP support for the base-hw kernel on x86
+
+
+August - Release 18.08
+======================
+
+* Sculpt by Visual Composition (VC)
+* Ability to (cleanly) restart device drivers
+* Updated PC hardware support
+* i.MX6 USB
+* Multi-component user mail agent
+* IOMMU support for the base-hw kernel on x86
+
+
+November - Release 18.11
+========================
+
+* Sculpt as a Community Experience (CE)
+* Automated tests hosted on top of Sculpt
+* Sculpt-like scenario for network appliances
+* Virtualization support for the base-hw kernel on x86
+
